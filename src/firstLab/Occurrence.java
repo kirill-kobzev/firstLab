@@ -1,5 +1,7 @@
 package firstLab;
 
+import org.apache.log4j.Logger;
+
 import java.io.*;
 import java.util.concurrent.*;
 
@@ -7,7 +9,7 @@ public class Occurrence implements Occurrences{
 
     ExecutorService executorService = Executors.newFixedThreadPool(10);
     private ConcurrentLinkedQueue<String> list =  new ConcurrentLinkedQueue<>();
-
+    private static final Logger LOGGER = Logger.getLogger(Occurrence.class);
     @Override
     public void getOccurrences(String[] resources, String[] words, String res) throws IOException {
 
@@ -21,7 +23,7 @@ public class Occurrence implements Occurrences{
             done = executorService.awaitTermination(5, TimeUnit.MINUTES);
             System.out.println(("Все файлы обработаны?\n" + done));
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage());
         }
 
         listWriteFile(list, res);
@@ -39,7 +41,7 @@ public class Occurrence implements Occurrences{
                     writer.write(strList + "\n");
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                LOGGER.error(e.getMessage());
             }
         }
 

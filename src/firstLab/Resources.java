@@ -1,5 +1,7 @@
 package firstLab;
 
+import org.apache.log4j.Logger;
+
 import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -7,7 +9,7 @@ import java.util.Scanner;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class Resources implements Runnable{
-
+    private static final Logger LOGGER = Logger.getLogger(Resources.class);
     private String resource;
     private String[] words;
     private ConcurrentLinkedQueue list;
@@ -26,14 +28,14 @@ public class Resources implements Runnable{
             try {
                 url = new URL(resource);
             } catch (MalformedURLException e) {
-                e.printStackTrace();
+                LOGGER.error(e.getMessage());
             }
             Scanner scanner = new Scanner(url.openStream()).useDelimiter("[.!?]");
             while (scanner.hasNext()) {
                 searchWordsInArrayAndAdd(scanner.next());
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage());
         }
     }
 

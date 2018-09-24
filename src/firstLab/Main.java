@@ -1,15 +1,16 @@
 package firstLab;
 
+import org.apache.log4j.Logger;
+
 import java.io.File;
 import java.io.IOException;
 
 public class Main {
+    private static final Logger LOGGER = Logger.getLogger(Main.class);
     public static void main(String[] args) {
 
         File myFolder = new File("d://testBig");
 
-        //Не знал, как сгенерированные файлы поместить в массив строк
-        //Написал метод listFileInArray, который это делает
         File[] files = myFolder.listFiles();
         String[] fileArray = listFileInArray(files);
 
@@ -17,14 +18,9 @@ public class Main {
 
         try {
             occurrence.getOccurrences(fileArray,
-//                    new String[]{
-//                             "file:C://Users//Kirill//Desktop//text1.txt"
-//                            , "file:C://Users//Kirill//Desktop//text0.txt"
-//                            , "file:C://Users//Kirill//Desktop//text2.txt"
-//                            },
-                    new String[]{"srp", "rbtbjjgrt", "da", "fbsrwer"}, "txt1");
+                    new String[]{"srp", "rbtbjjgrt", "da", "starter"}, "txt1");
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage());
         }
 
     }
